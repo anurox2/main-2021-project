@@ -58,16 +58,16 @@ os.mkdir(dir_name)
 os.chdir(dir_name)
 
 # Data scaling
-# scale = True
-scaling_range = (0,10)
-epochs = 10
-neurons = 2
+scale = True
+scaling_range = (0,100)
+epochs = 50
+neurons = 3
 
-# loss_function = 'mse'
-loss_function = losses.mean_squared_logarithmic_error
+loss_function = 'mse'
+# loss_function = losses.mean_squared_logarithmic_error
 # loss_function = 'binary_crossentropy'
 
-batch_size = 64
+batch_size = 16
 
 if (scale):
   if(loss_function == losses.mean_squared_logarithmic_error):
@@ -203,11 +203,11 @@ ax = fig.add_subplot(111, projection='3d')
 
 x_coord = []
 y_coord = []
+z_coord = []
 for i in range(0, len(prediction_output)):
   x_coord.append(prediction_output[i][0])
   y_coord.append(prediction_output[i][1])
-
-z_coord = y_pred
+  z_coord.append(prediction_output[i][2])
 
 def plotcolor(coord_list):
   colors = []
@@ -218,14 +218,14 @@ def plotcolor(coord_list):
       colors.append('green')
   return colors
 
-plt_colors = plotcolor(z_coord)
+plt_colors = plotcolor(y_pred)
 
-ax.scatter(x_coord, y_coord, c=plt_colors)
+# ax.scatter(x_coord, y_coord, c=plt_colors)
 
-ax.set_xlabel('X Label - Pred')
-ax.set_ylabel('Y Label - Pred')
+# ax.set_xlabel('X Label - Pred')
+# ax.set_ylabel('Y Label - Pred')
 
-plt.savefig('prediction_'+filename+'.png')
+# plt.savefig('prediction_'+filename+'.png')
 
 ax.scatter(x_coord, y_coord, z_coord, c=plt_colors)
 
